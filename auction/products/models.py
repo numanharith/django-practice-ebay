@@ -1,4 +1,5 @@
 from django.db import models
+from django.urls import reverse
 import uuid
 
 # Create your models here.
@@ -18,3 +19,8 @@ class Product(models.Model):
 
     def __str__(self):
         return self.name
+
+    # Retrieves URL to make a request in test case
+    def get_absolute_url(self):
+        return reverse("product_show", kwargs={"pk": self.pk})
+    

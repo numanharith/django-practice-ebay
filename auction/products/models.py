@@ -22,5 +22,5 @@ class Product(models.Model):
 
     # Retrieves URL to make a request in test case
     def get_absolute_url(self):
-        return reverse("product_show", kwargs={"pk": self.pk})
+        return reverse("products:product_show", kwargs={"pk": self.pk})
     

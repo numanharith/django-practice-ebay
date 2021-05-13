@@ -1,3 +1,4 @@
+from comments.forms import CommentForm
 from products.models import Product
 from django.shortcuts import render, redirect
 from products.forms import ProductForm
@@ -13,10 +14,10 @@ def views_index(request):
         if form.is_valid():
             form.save()
             messages.success(request, "Product has been added.")
-            return redirect('products_index')
+            return redirect('products:products_index')
         else:
             messages.error(request, "Error: Product failed to add.")
-            return redirect('products_index')
+            return redirect('products:products_index')
 
     # GET request
     products = Product.objects.all()
@@ -27,7 +28,7 @@ def views_show(request, pk):
     try:
         product = Product.objects.get(pk=pk)
     except Product.DoesNotExist:
-        return redirect('products_index')
+        return redirect('products:products_index')
         
     form = ProductForm(instance=product)
              
@@ -36,7 +37,7 @@ def views_show(request, pk):
         form = ProductForm(request.POST, instance=product)
         if form.is_valid():
             form.save()
-            return redirect('product_show', product.id)
+            return redirect('products:product_show', product.id)
 
     # if user CLICKS EDIT
     if request.GET.get('action') == 'edit':
@@ -45,6 +46,8 @@ def views_show(request, pk):
     # if user CLICKS DELETE
     if request.GET.get('action') == 'del':
         product.delete()
-        return redirect('products_index')
+        return redirect('products:products_index')
 
-    return render(request, 'products/show.html', { "form": form, "product": product, "edit": False })
+    comment_form = CommentForm()
+    context = { "form": form, "product": product, "edit": False, "comment_form": comment_form }
+    return render(request, 'products/show.html', context)

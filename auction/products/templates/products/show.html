@@ -4,9 +4,24 @@
 <div class="container">
     <div class="row">
         <div class="col-md-4">
+            <img src="{{product.imgurl}}" class="card-img-top">
             {{product.name}}
-            <a href="{% url 'product_show' product.id %}?action=edit">Edit</a>
-            <a href="{% url 'product_show' product.id %}?action=del">Delete</a>
+            <a href="{% url 'products:product_show' product.id %}?action=edit">Edit</a>
+            <a href="{% url 'products:product_show' product.id %}?action=del">Delete</a>
+            
+            <div>
+                <form action="{% url 'comments:comment_create' product.id %}" method="post">
+                    {% csrf_token %}
+                    {{comment_form}}
+                    <button type="submit">Add Comment</button>
+                </form>
+
+                <div>
+                    {% for c in product.comments.all %}
+                        {{c.comment}}
+                    {% endfor %}
+                </div>
+            </div>
         </div>
 
         {% comment %} Shows form only if user clicks edit {% endcomment %}

@@ -1,9 +1,9 @@
 from django import forms
 from django.forms import widgets
-from products.models import Product
+from .models import *
 
 class ProductForm(forms.ModelForm):
-    
+
     class Meta:
         model = Product
         fields = '__all__'
@@ -31,4 +31,11 @@ class ProductForm(forms.ModelForm):
                 'placeholder': 'Price of product',
                 'type': 'number'
             }),
+            'categories': forms.CheckboxSelectMultiple(),
         }   
+
+class CategoryForm(forms.ModelForm):
+    
+    class Meta:
+        model = Category
+        fields = '__all__'

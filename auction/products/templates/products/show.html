@@ -1,4 +1,4 @@
-{% extends 'products/base.html' %}
+{% extends 'base.html' %}
 
 {% block body %}
 <div class="container">
@@ -18,7 +18,8 @@
 
                 <div>
                     {% for c in product.comments.all %}
-                        {{c.comment}}
+                        <h2>{{c.name}}</h2>
+                        <p>{{c.comment}}</p>
                     {% endfor %}
                 </div>
             </div>

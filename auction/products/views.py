@@ -3,8 +3,10 @@ from products.models import Product
 from django.shortcuts import render, redirect
 from products.forms import *
 from django.contrib import messages
+from django.contrib.auth.decorators import login_required
 
 # Create your views here.
+@login_required
 def views_index(request):
     form = ProductForm()
 
@@ -24,6 +26,7 @@ def views_index(request):
 
     return render(request, 'products/index.html', { "form": form, "products": products })
 
+@login_required
 def view_show(request, pk):
     try:
         product = Product.objects.get(pk=pk)
@@ -52,6 +55,7 @@ def view_show(request, pk):
     context = { "form": form, "product": product, "edit": False, "comment_form": comment_form }
     return render(request, 'products/show.html', context)
 
+@login_required
 def view_create_category(request):
     category_form = CategoryForm()
     if request.method == 'POST':

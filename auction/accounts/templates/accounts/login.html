@@ -1,0 +1,26 @@
+{% extends 'accounts/base.html' %}
+
+{% block content %}
+    Login form
+    <div class="container">
+        <form action="" method="post">
+            {% csrf_token %}
+            
+            <div class="row">
+                <div class="col-md-12">
+                    <label>Username</label>
+                    <input type="text" class="form-control" name="username">
+                </div> 
+            </div>
+
+            <div class="row">
+                <div class="col-md-12">
+                    <label>Password</label>
+                    <input type="password" class="form-control" name="password">
+                </div>
+            </div>
+            <br>
+            <button type="submit" class="btn btn-primary">Register</button>
+        </form>
+    </div>
+{% endblock content %}
